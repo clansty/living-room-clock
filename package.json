@@ -1,0 +1,36 @@
+{
+  "name": "qwq",
+  "version": "0.0.0",
+  "main": "dist/main/index.cjs",
+  "author": "Clansty <i@gao4.pw>",
+  "private": true,
+  "scripts": {
+    "dev": "node scripts/watch.mjs",
+    "prebuild": "node scripts/build.mjs",
+    "build": "yarn prebuild && electron-builder",
+    "debug": "vite ./src/renderer"
+  },
+  "engines": {
+    "node": ">=14.17.0"
+  },
+  "devDependencies": {
+    "@originjs/vite-plugin-content": "^1.0.1",
+    "@vitejs/plugin-vue": "^2.3.1",
+    "@vueuse/core": "^8.3.1",
+    "electron": "^18.1.0",
+    "electron-builder": "^23.0.3",
+    "naive-ui": "^2.28.2",
+    "sass": "^1.51.0",
+    "typescript": "^4.6.3",
+    "unplugin-vue-components": "^0.19.3",
+    "vite": "^2.9.6",
+    "vite-plugin-resolve": "^2.0.7",
+    "vite-svg-loader": "^3.3.0",
+    "vue": "^3.2.33",
+    "vue-router": "^4.0.14"
+  },
+  "env": {
+    "PORT": 3344
+  },
+  "packageManager": "yarn@3.2.0"
+}
