@@ -5,7 +5,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div v-if="text && text == '未来两小时无降水'">
+  <div v-if="text && text !== '未来两小时无降水'">
     {{ text }}
   </div>
 </template>

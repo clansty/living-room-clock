@@ -14,6 +14,7 @@ import { RouterView } from 'vue-router';
 html, body {
   height: 100vh;
   margin: 0;
+  cursor: none;
 }
 
 body {

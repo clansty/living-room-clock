@@ -18,13 +18,16 @@ let win: BrowserWindow | null = null;
 async function createWindow() {
   win = new BrowserWindow({
     title: 'Main window',
+    width: 1024,
+    height: 768,
+    kiosk: true,
     webPreferences: {
       preload: join(__dirname, '../preload/index.cjs'),
     },
   });
 
   // XXX: 用 isPackaged 判断是否生产环境大概不太对，应该用环境变量的。因为 Arch System Electron 的情况 isPackaged = false
-  if (app.isPackaged || process.env['DEBUG']) {
+  if (process.env.NODE_ENV !== 'development') {
     win.loadFile(join(__dirname, '../renderer/index.html'));
   }
   else {
@@ -39,6 +42,8 @@ async function createWindow() {
     if (url.startsWith('https:')) shell.openExternal(url);
     return { action: 'deny' };
   });
+
+  // win.webContents.toggleDevTools();
 }
 
 app.whenReady().then(createWindow);
