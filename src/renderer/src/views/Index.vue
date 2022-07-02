@@ -40,7 +40,7 @@ useIntervalFn(updateWeather, 1000 * 60 * 5, { immediateCallback: true });
   <div class="container">
     <n-grid cols="2" x-gap="16">
       <n-gi>
-        <div style="font-weight: bold; font-size: 4.5em; line-height: 1.4">
+        <div style="font-size: 4.5em; line-height: 1.4">
           <n-time :time="now" format="H:mm"/>
         </div>
         <div style="font-size: 1.5em; margin-bottom: 0.5em">
