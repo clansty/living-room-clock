@@ -9,9 +9,9 @@ const props = defineProps<{
 </script>
 
 <template>
-  <n-grid cols="8">
-    <n-gi v-for="hour in props.data.slice(0, 8)" style="text-align: center">
-      <div style="font-size: 0.7em">
+  <n-grid cols="12">
+    <n-gi v-for="hour in props.data.slice(0, 12)" style="text-align: center">
+      <div style="font-size: 0.8em">
         <n-time :time="new Date(hour.fxTime)" format="H:mm"/>
       </div>
       <div style="display: flex; justify-content: center; margin: 0.35em 0; font-size: 1.2em">

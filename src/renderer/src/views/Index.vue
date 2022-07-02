@@ -50,13 +50,13 @@ useIntervalFn(updateWeather, 1000 * 60 * 5, { immediateCallback: true });
           <Realtime :now="dataH5.now"/>
           <Props :now="dataH5.now" :air="dataH5.air_now_city"/>
         </div>
-        <RainWarning :text="dataH5.rain.txt" v-if="dataH5" style="margin-bottom: 1em"/>
       </n-gi>
-      <n-gi>
-        <Hourly :data="data24h.hourly" v-if="data24h"/>
+      <n-gi style="display: flex; flex-direction: column; justify-content: center">
+        <RainWarning :text="dataH5.rain.txt" v-if="dataH5" style="margin-bottom: 1em"/>
         <Week :data="data7d.daily" v-if="data7d" style="font-size: 0.9em"/>
       </n-gi>
     </n-grid>
+    <Hourly :data="data24h.hourly" v-if="data24h"/>
   </div>
 </template>
 

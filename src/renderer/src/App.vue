@@ -15,6 +15,7 @@ html, body {
   height: 100vh;
   margin: 0;
   cursor: none;
+  overflow: hidden;
 }
 
 body {
