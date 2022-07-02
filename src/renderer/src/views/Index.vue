@@ -13,7 +13,10 @@ const data24h = ref<QWeather24h>();
 const data7d = ref<QWeather7d>();
 const now = useNow();
 
-const config = JSON.parse(window.fs.readFileSync('/etc/clock/config', 'utf-8'));
+const config = {
+  city: 'CN101190405',
+  key: 'a4e073584ad243789d2fb59005a31e36'
+};
 
 // 更新天气数据
 const fetchWeatherApi = async (url: URL, key: string) => {
@@ -37,7 +40,7 @@ useIntervalFn(updateWeather, 1000 * 60 * 5, { immediateCallback: true });
   <div class="container">
     <n-grid cols="2" x-gap="16">
       <n-gi>
-        <div style="font-weight: bold; font-size: 4em">
+        <div style="font-weight: bold; font-size: 4.5em; line-height: 1.4">
           <n-time :time="now" format="H:mm"/>
         </div>
         <div style="font-size: 1.5em; margin-bottom: 0.5em">
@@ -47,10 +50,10 @@ useIntervalFn(updateWeather, 1000 * 60 * 5, { immediateCallback: true });
           <Realtime :now="dataH5.now"/>
           <Props :now="dataH5.now" :air="dataH5.air_now_city"/>
         </div>
-        <Hourly :data="data24h.hourly" v-if="data24h"/>
+        <RainWarning :text="dataH5.rain.txt" v-if="dataH5" style="margin-bottom: 1em"/>
       </n-gi>
       <n-gi>
-        <RainWarning :text="dataH5.rain.txt" v-if="dataH5" style="margin-bottom: 1em"/>
+        <Hourly :data="data24h.hourly" v-if="data24h"/>
         <Week :data="data7d.daily" v-if="data7d" style="font-size: 0.9em"/>
       </n-gi>
     </n-grid>
@@ -59,9 +62,9 @@ useIntervalFn(updateWeather, 1000 * 60 * 5, { immediateCallback: true });
 
 <style lang="scss" scoped>
 .container {
-  color: #ccc;
+  color: #000;
   font-size: 3vw;
-  line-height: 1.6;
+  line-height: 1.8;
   padding: 1em;
   font-family: STHeiti, 华文细黑, 华文黑体, "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", MingLiu, sans-serif;
 }
