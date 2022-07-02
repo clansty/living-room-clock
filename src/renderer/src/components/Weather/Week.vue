@@ -10,8 +10,8 @@ const props = defineProps<{
 </script>
 
 <template>
-  <n-grid cols="7">
-    <n-gi v-for="day in props.data" style="text-align: center">
+  <n-grid cols="6">
+    <n-gi v-for="day in props.data.slice(1,7)" style="text-align: center">
       <div style="font-size: 0.7em">
         <n-time :time="new Date(day.fxDate)" format="M/d"/>
       </div>

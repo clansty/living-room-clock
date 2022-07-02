@@ -53,7 +53,7 @@ useIntervalFn(updateWeather, 1000 * 60 * 5, { immediateCallback: true });
       </n-gi>
       <n-gi style="display: flex; flex-direction: column; justify-content: center">
         <RainWarning :text="dataH5.rain.txt" v-if="dataH5" style="margin-bottom: 1em"/>
-        <Week :data="data7d.daily" v-if="data7d" style="font-size: 0.9em"/>
+        <Week :data="data7d.daily" v-if="data7d" style="font-size: 1.05em"/>
       </n-gi>
     </n-grid>
     <Hourly :data="data24h.hourly" v-if="data24h"/>
@@ -62,6 +62,7 @@ useIntervalFn(updateWeather, 1000 * 60 * 5, { immediateCallback: true });
 
 <style lang="scss" scoped>
 .container {
+  margin-top: -0.35em;
   color: #000;
   font-size: 3vw;
   line-height: 1.8;
