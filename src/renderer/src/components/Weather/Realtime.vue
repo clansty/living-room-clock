@@ -13,7 +13,7 @@ const props = defineProps<{
     <div>
       <div style="font-size: 2.7em">{{ now.tmp }}<Degree/></div>
       <!-- 下面这个 div 不 flex 会不居中，文字带 svg 通病 -->
-      <div style="display: flex; align-items: center; padding-left: 0.15em">
+      <div style="display: flex; align-items: center; padding-left: 0.15em; font-size: 1.25em; line-height: 1">
         <WeatherIcon :id="now.cond_code"/>
         <span style="margin-left: 0.2em">{{ now.cond_txt }}</span>
       </div>
