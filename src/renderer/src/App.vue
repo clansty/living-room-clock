@@ -14,11 +14,17 @@ import { RouterView } from 'vue-router';
 html, body {
   height: 100vh;
   margin: 0;
-  cursor: none;
+  /*cursor: none;*/
   overflow: hidden;
 }
 
 body {
   background-color: #fff;
+}
+
+iframe, webview {
+  border: none;
+  height: 100%;
+  width: 100%;
 }
 </style>

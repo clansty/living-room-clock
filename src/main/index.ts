@@ -20,20 +20,21 @@ async function createWindow() {
     title: 'Main window',
     width: 1024,
     height: 768,
-    kiosk: true,
+    // kiosk: true,
     webPreferences: {
       preload: join(__dirname, '../preload/index.cjs'),
+      webviewTag: true,
     },
   });
 
   // XXX: 用 isPackaged 判断是否生产环境大概不太对，应该用环境变量的。因为 Arch System Electron 的情况 isPackaged = false
   if (process.env.NODE_ENV !== 'development') {
-    win.loadFile(join(__dirname, '../renderer/index.html'));
+    win.loadFile(join(__dirname, '../renderer/index.html') + '#/kiosk/');
   }
   else {
     // 🚧 Use ['ENV_NAME'] avoid vite:define plugin
-    const url = `http://${process.env['VITE_DEV_SERVER_HOST']}:${process.env['VITE_DEV_SERVER_PORT']}`;
-
+    const url = `http://[${process.env['VITE_DEV_SERVER_HOST']}]:${process.env['VITE_DEV_SERVER_PORT']}/#/kiosk/`;
+    console.log(url);
     win.loadURL(url);
   }
 
