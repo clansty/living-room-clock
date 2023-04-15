@@ -15,22 +15,23 @@
   },
   "devDependencies": {
     "@originjs/vite-plugin-content": "^1.0.1",
-    "@vitejs/plugin-vue": "^2.3.1",
-    "@vueuse/core": "^8.3.1",
-    "electron": "^18.1.0",
-    "electron-builder": "^23.0.3",
-    "naive-ui": "^2.28.2",
-    "sass": "^1.51.0",
-    "typescript": "^4.6.3",
-    "unplugin-vue-components": "^0.19.3",
-    "vite": "^2.9.6",
-    "vite-plugin-resolve": "^2.0.7",
-    "vite-svg-loader": "^3.3.0",
-    "vue": "^3.2.33",
-    "vue-router": "^4.0.14"
+    "@vitejs/plugin-vue": "^4.1.0",
+    "@vitejs/plugin-vue-jsx": "3.0.1",
+    "@vueuse/core": "^10.0.2",
+    "electron": "^24.1.2",
+    "electron-builder": "^23.6.0",
+    "naive-ui": "^2.34.3",
+    "sass": "^1.62.0",
+    "typescript": "^5.0.4",
+    "unplugin-vue-components": "^0.24.1",
+    "vite": "^4.2.1",
+    "vite-plugin-resolve": "^2.3.0",
+    "vite-svg-loader": "^4.0.0",
+    "vue": "^3.2.47",
+    "vue-router": "^4.1.6"
   },
   "env": {
     "PORT": 3344
   },
-  "packageManager": "yarn@3.2.0"
+  "packageManager": "yarn@3.5.0"
 }
