@@ -4,11 +4,13 @@ import Kiosk from './views/Kiosk';
 import Hass from './views/kiosk/Hass.vue';
 import Uptime from './views/kiosk/Uptime.vue';
 import ClansTools from './views/kiosk/ClansTools.vue';
+import ScreenSaver from './views/ScreenSaver';
 
 export default createRouter({
   history: createWebHashHistory(),
   routes: [
     { path: '/', component: Index },
+    { path: '/screensaver', component: ScreenSaver },
     {
       path: '/kiosk', component: Kiosk, children: [
         { path: 'hass', component: Hass, name: 'hass' },
