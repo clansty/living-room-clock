@@ -19,7 +19,6 @@ declare module '@vue/runtime-core' {
     Realtime: typeof import('./src/components/Weather/Realtime.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    Weather: typeof import('./src/components/Weather/index.vue')['default']
     WeatherIcon: typeof import('./src/components/Weather/WeatherIcon.vue')['default']
     Week: typeof import('./src/components/Weather/Week.vue')['default']
   }

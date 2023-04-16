@@ -1,6 +1,7 @@
 import { app, BrowserWindow, shell } from 'electron';
 import { release } from 'os';
 import { join } from 'path';
+import * as os from 'os';
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith('6.1')) app.disableHardwareAcceleration();
@@ -20,21 +21,21 @@ async function createWindow() {
     title: 'Main window',
     width: 1024,
     height: 768,
-    // kiosk: true,
+    kiosk: process.env.NODE_ENV !== 'development' && os.platform() === 'linux',
     webPreferences: {
       preload: join(__dirname, '../preload/index.cjs'),
       webviewTag: true,
+      zoomFactor: 1.15,
     },
   });
 
   // XXX: 用 isPackaged 判断是否生产环境大概不太对，应该用环境变量的。因为 Arch System Electron 的情况 isPackaged = false
   if (process.env.NODE_ENV !== 'development') {
-    win.loadFile(join(__dirname, '../renderer/index.html') + '#/kiosk/');
+    win.loadURL('file://' + join(__dirname, '../renderer/index.html') + '#/kiosk/');
   }
   else {
     // 🚧 Use ['ENV_NAME'] avoid vite:define plugin
     const url = `http://[${process.env['VITE_DEV_SERVER_HOST']}]:${process.env['VITE_DEV_SERVER_PORT']}/#/kiosk/`;
-    console.log(url);
     win.loadURL(url);
   }
 
