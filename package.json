@@ -33,5 +33,8 @@
   "env": {
     "PORT": 3344
   },
-  "packageManager": "yarn@3.5.0"
+  "packageManager": "yarn@3.5.0",
+  "dependencies": {
+    "mqtt": "^4.3.7"
+  }
 }

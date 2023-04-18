@@ -22,9 +22,6 @@ const createWindow = () => {
     height: 1080,
     alwaysOnTop: true,
     fullscreen: process.env.NODE_ENV !== 'development' && os.platform() === 'linux',
-    webPreferences: {
-      preload: join(__dirname, '../preload/index.cjs'),
-    },
   });
 
   // XXX: 用 isPackaged 判断是否生产环境大概不太对，应该用环境变量的。因为 Arch System Electron 的情况 isPackaged = false

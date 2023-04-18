@@ -4,7 +4,7 @@ export { }
 declare global {
   interface Window {
     // Expose some Api through preload script
-    fs: typeof import('fs')
+    mqtt: import('mqtt').MqttClient
     ipcRenderer: import('electron').IpcRenderer
   }
 }

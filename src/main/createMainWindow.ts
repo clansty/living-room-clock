@@ -14,7 +14,6 @@ export default () => {
     // type: process.env.NODE_ENV !== 'development' && os.platform() === 'linux' ? 'desktop' : undefined,
     fullscreen: process.env.NODE_ENV !== 'development' && os.platform() === 'linux',
     webPreferences: {
-      preload: join(__dirname, '../preload/index.cjs'),
       webviewTag: true,
       zoomFactor: 1.15,
     },
