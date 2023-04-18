@@ -53,6 +53,6 @@ const timerFunction = async () => {
   if (os.platform() !== 'linux') return;
   const process = spawn('xprintidle');
   const idleMs = (await streamToBuffer(process.stdout)).toString('utf-8').trim();
-  if (Number(idleMs) < 1000 * 60) return;
+  if (Number(idleMs) < 1000 * 60 * 5) return;
   createWindow();
 };

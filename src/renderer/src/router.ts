@@ -5,6 +5,7 @@ import Hass from './views/kiosk/Hass.vue';
 import Uptime from './views/kiosk/Uptime.vue';
 import ClansTools from './views/kiosk/ClansTools.vue';
 import ScreenSaver from './views/ScreenSaver';
+import SmokePing from './views/kiosk/SmokePing.vue';
 
 export default createRouter({
   history: createWebHashHistory(),
@@ -16,6 +17,7 @@ export default createRouter({
         { path: 'hass', component: Hass, name: 'hass' },
         { path: 'uptime', component: Uptime, name: 'uptime' },
         { path: 'clanstools', component: ClansTools, name: 'clanstools' },
+        { path: 'smokeping', component: SmokePing, name: 'smokeping' },
       ],
     },
   ],

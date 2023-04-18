@@ -7,7 +7,8 @@ export default defineComponent({
     const menuOptions = {
       hass: 'Home Assistant',
       uptime: 'Uptime Kuma',
-      clanstools: 'ClansTools'
+      clanstools: 'ClansTools',
+      smokeping: 'SmokePing'
     }
     const route = useRoute();
 
