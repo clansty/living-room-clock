@@ -25,7 +25,8 @@ export default () => {
   }
   else {
     // 🚧 Use ['ENV_NAME'] avoid vite:define plugin
-    const url = `http://[${process.env['VITE_DEV_SERVER_HOST']}]:${process.env['VITE_DEV_SERVER_PORT']}/#/kiosk/clanstools`;
+    const url = `http://${process.env['VITE_DEV_SERVER_HOST']}:${process.env['VITE_DEV_SERVER_PORT']}/#/kiosk/0`;
+    console.log(url);
     win.loadURL(url);
   }
 
