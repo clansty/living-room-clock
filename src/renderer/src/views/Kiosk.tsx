@@ -7,8 +7,11 @@ export default defineComponent({
     const menuOptions = {
       hass: 'Home Assistant',
       uptime: 'Uptime Kuma',
+      uptimeGrafana: 'Uptime Kuma Grafana',
       clanstools: 'ClansTools',
-      smokeping: 'SmokePing'
+      smokeping: 'SmokePing',
+      pve: "Clansty's PVE",
+      host: "Host Status",
     }
     const route = useRoute();
 
