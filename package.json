@@ -28,13 +28,11 @@
     "vite-plugin-resolve": "^2.3.0",
     "vite-svg-loader": "^4.0.0",
     "vue": "^3.2.47",
-    "vue-router": "^4.1.6"
+    "vue-router": "^4.1.6",
+    "mqtt": "^4.3.7"
   },
   "env": {
     "PORT": 3344
   },
-  "packageManager": "yarn@3.5.0",
-  "dependencies": {
-    "mqtt": "^4.3.7"
-  }
+  "packageManager": "yarn@3.5.0"
 }

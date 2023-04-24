@@ -11,14 +11,11 @@ export default createRouter({
     { path: '/', component: Index },
     { path: '/screensaver', component: ScreenSaver },
     {
-      path: '/kiosk', component: Kiosk, children: [
-        ...kioskConfig.map((item, index) => ({
-          name: index.toString(),
-          path: index.toString(),
-          component: item.content,
-        })),
-        // { name: 'clanstools', Component: ClansTools, path: 'clanstools' },
-      ],
+      path: '/kiosk', component: Kiosk, children: kioskConfig.map((item, index) => ({
+        name: index.toString(),
+        path: index.toString(),
+        component: item.content,
+      })),
     },
   ],
 });

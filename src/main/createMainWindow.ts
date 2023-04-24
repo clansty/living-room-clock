@@ -21,7 +21,7 @@ export default () => {
 
   // XXX: 用 isPackaged 判断是否生产环境大概不太对，应该用环境变量的。因为 Arch System Electron 的情况 isPackaged = false
   if (process.env.NODE_ENV !== 'development') {
-    win.loadURL('file://' + join(__dirname, '../renderer/index.html') + '#/kiosk/clanstools');
+    win.loadURL('file://' + join(__dirname, '../renderer/index.html') + '#/kiosk/0');
   }
   else {
     // 🚧 Use ['ENV_NAME'] avoid vite:define plugin
