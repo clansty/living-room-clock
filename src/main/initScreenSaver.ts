@@ -1,4 +1,4 @@
-import { BrowserWindow, shell } from 'electron';
+import { BrowserWindow, shell, ipcMain } from 'electron';
 import os from 'os';
 import { join } from 'path';
 import { spawn } from 'child_process';
@@ -14,7 +14,10 @@ export default () => {
 }
 
 const createWindow = () => {
-  if (win && !win.isDestroyed()) return;
+  if (win && !win.isDestroyed()) {
+    win.show();
+    return;
+  }
 
   win = new BrowserWindow({
     title: 'ScreenSaver',
@@ -22,6 +25,20 @@ const createWindow = () => {
     height: 1080,
     alwaysOnTop: true,
     fullscreen: process.env.NODE_ENV !== 'development' && os.platform() === 'linux',
+    webPreferences: {
+      contextIsolation: false,
+      nodeIntegration: true,
+    },
+  });
+
+  win.on('close', (event) => {
+    console.log('close');
+    event.preventDefault();
+    win!.hide();
+  });
+
+  ipcMain.on('hideScreenSaver', () => {
+    win!.hide();
   });
 
   // XXX: 用 isPackaged 判断是否生产环境大概不太对，应该用环境变量的。因为 Arch System Electron 的情况 isPackaged = false
@@ -30,7 +47,8 @@ const createWindow = () => {
   }
   else {
     // 🚧 Use ['ENV_NAME'] avoid vite:define plugin
-    const url = `http://${process.env['VITE_DEV_SERVER_HOST']}:${process.env['VITE_DEV_SERVER_PORT']}/#/screensaver`;
+    win.webContents.openDevTools();
+    const url = `http://[${process.env['VITE_DEV_SERVER_HOST']}]:${process.env['VITE_DEV_SERVER_PORT']}/#/screensaver`;
     win.loadURL(url);
   }
 
@@ -38,11 +56,6 @@ const createWindow = () => {
   win.webContents.setWindowOpenHandler(({ url }) => {
     if (url.startsWith('https:')) shell.openExternal(url);
     return { action: 'deny' };
-  });
-
-  win.on('close', () => {
-    win!.destroy();
-    win = null;
   });
 };
 

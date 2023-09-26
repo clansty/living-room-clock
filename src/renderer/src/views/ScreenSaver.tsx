@@ -4,10 +4,13 @@ import {NSpace, NTime} from "naive-ui";
 import _ from 'lodash'
 import DryerIcon from '../assets/icons/dryer.svg'
 import mqtt from 'mqtt'
+import sound from '../assets/qwq.wav'
+import {ipcRenderer} from 'electron'
 
 export default defineComponent({
   setup() {
     const now = useNow();
+    const dryerState = ref<{ timer: number }>({timer: 0})
     const opacity = computed(() => now.value.getSeconds() >= 57 ? 0 : 1)
     const timeRef = ref<ComponentPublicInstance>()
     const position = (ref({
@@ -28,33 +31,13 @@ export default defineComponent({
       console.log(position.value)
     }
 
-    watch([() => now.value.getMinutes()], () => randPosition())
-    onMounted(() => randPosition())
+    const playAudio = async () => {
+      const audio = new Audio(sound)
+      audio.volume = 0.2;
+      await audio.play()
+    }
+    effect(playAudio)
 
-    return () => <div style={{
-      height: '100vh',
-      width: '100%',
-      background: 'black',
-      fontFamily: 'STHeiti, 华文细黑, 华文黑体, "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", MingLiu, sans-serif',
-      fontSize: '2em'
-    }}
-                      onClick={window.close}
-    >
-      <Time style={{
-        opacity: opacity.value,
-        position: 'absolute',
-        top: position.value.top + 'px',
-        left: position.value.left + 'px'
-      }}
-            ref={timeRef}/>
-    </div>
-  }
-})
-
-const Time = defineComponent({
-  setup() {
-    const now = useNow();
-    const dryerState = ref<{ timer: number }>({timer: 0})
     const mqttClient = mqtt.connect("ws://172.16.0.77:1884", {
       clean: true,
       connectTimeout: 4000,
@@ -67,24 +50,64 @@ const Time = defineComponent({
         case 'dryertimer/status':
           dryerState.value = JSON.parse(payload.toString()) as { timer: number }
           break;
+        case 'zigbee2mqtt/0xa4c1385783dd5105/action':
+        case 'doorbellTest/action':
+          playAudio()
+          break;
       }
     })
     mqttClient.once('connect', () => {
-      mqttClient.subscribe(['dryertimer/status'])
+      mqttClient.subscribe(['dryertimer/status', 'zigbee2mqtt/0xa4c1385783dd5105/action', 'doorbellTest/action'])
     })
     const dryerTimeLeft = computed(() => {
       if (dryerState.value.timer === 0 || dryerState.value.timer <= now.value.getTime()) return 0;
       return dryerState.value.timer - now.value.getTime()
     })
 
+    watch([() => now.value.getMinutes()], () => randPosition())
+    onMounted(() => randPosition())
+
+    const hideScreenSaver = () => {
+      ipcRenderer.send('hideScreenSaver')
+    }
+
+    return () => <div style={{
+      height: '100vh',
+      width: '100%',
+      background: 'black',
+      fontFamily: 'STHeiti, 华文细黑, 华文黑体, "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", MingLiu, sans-serif',
+      fontSize: '2em'
+    }}
+                      onClick={hideScreenSaver}
+    >
+      <Time style={{
+        opacity: opacity.value,
+        position: 'absolute',
+        top: position.value.top + 'px',
+        left: position.value.left + 'px'
+      }}
+            ref={timeRef}
+            dryerTimeLeft={dryerTimeLeft.value}
+      />
+    </div>
+  }
+})
+
+const Time = defineComponent({
+  props: {
+    dryerTimeLeft: Number
+  },
+  setup(props) {
+    const now = useNow();
+
     return () => <div style={{color: '#cccccc', transition: 'opacity 3s', display: 'inline-block'}}>
       <div style="font-size: 4.5em; line-height: 1.2">
         <NTime time={now.value} format="H:mm"/>
       </div>
-      {!!dryerTimeLeft.value &&
+      {!!props.dryerTimeLeft &&
               <NSpace style={{fontSize: '1.5em'}} justify="center" align="center">
                 <DryerIcon/>
-                <NTime time={dryerTimeLeft.value} format="H:mm:ss" timeZone="UTC" style={{marginBottom: '-.1em'}}/>
+                <NTime time={props.dryerTimeLeft} format="H:mm:ss" timeZone="UTC" style={{marginBottom: '-.1em'}}/>
               </NSpace>}
     </div>
   }

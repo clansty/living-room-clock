@@ -20,6 +20,7 @@
     "@vueuse/core": "^10.0.2",
     "electron": "^24.1.2",
     "electron-builder": "^23.6.0",
+    "mqtt": "^4.3.7",
     "naive-ui": "^2.34.3",
     "sass": "^1.62.0",
     "typescript": "^5.0.4",
@@ -28,8 +29,7 @@
     "vite-plugin-resolve": "^2.3.0",
     "vite-svg-loader": "^4.0.0",
     "vue": "^3.2.47",
-    "vue-router": "^4.1.6",
-    "mqtt": "^4.3.7"
+    "vue-router": "^4.1.6"
   },
   "env": {
     "PORT": 3344
