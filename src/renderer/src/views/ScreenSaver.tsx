@@ -5,6 +5,8 @@ import _ from 'lodash'
 import DryerIcon from '../assets/icons/dryer.svg'
 import mqtt from 'mqtt'
 import sound from '../assets/qwq.wav'
+import connectedIcon from '../assets/icons/On.png';
+import disconnectedIcon from '../assets/icons/Warrning.png';
 import {ipcRenderer} from 'electron'
 
 export default defineComponent({
@@ -17,6 +19,7 @@ export default defineComponent({
       top: 0,
       left: 0
     }))
+    const connected = ref(false)
     const randPosition = () => {
       console.log('randPosition')
       if (!timeRef.value) {
@@ -36,7 +39,6 @@ export default defineComponent({
       audio.volume = 0.2;
       await audio.play()
     }
-    effect(playAudio)
 
     const mqttClient = mqtt.connect("ws://172.16.0.77:1884", {
       clean: true,
@@ -44,6 +46,18 @@ export default defineComponent({
       username: "mqtt",
       password: "mqtt",
       reconnectPeriod: 1000,
+    })
+    mqttClient.once('connect', () => {
+      mqttClient.subscribe(['dryertimer/status', 'zigbee2mqtt/0xa4c1385783dd5105/action', 'doorbellTest/action'])
+    })
+    mqttClient.on("connect", () => {
+      connected.value = true
+    })
+    mqttClient.on("reconnect", () => {
+      connected.value = true
+    })
+    mqttClient.on("disconnect", () => {
+      connected.value = false
     })
     mqttClient.on('message', (message, payload) => {
       switch (message) {
@@ -55,9 +69,6 @@ export default defineComponent({
           playAudio()
           break;
       }
-    })
-    mqttClient.once('connect', () => {
-      mqttClient.subscribe(['dryertimer/status', 'zigbee2mqtt/0xa4c1385783dd5105/action', 'doorbellTest/action'])
     })
     const dryerTimeLeft = computed(() => {
       if (dryerState.value.timer === 0 || dryerState.value.timer <= now.value.getTime()) return 0;
@@ -80,6 +91,13 @@ export default defineComponent({
     }}
                       onClick={hideScreenSaver}
     >
+      <img src={connected.value ? connectedIcon : disconnectedIcon}
+           style={{
+             position: 'fixed',
+             top: '20px',
+             right: '20px'
+           }}
+      />
       <Time style={{
         opacity: opacity.value,
         position: 'absolute',
